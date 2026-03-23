@@ -17,7 +17,7 @@ def get_llm():
         api_key = os.environ.get("GROQ_API_KEY")
         if not api_key:
             raise ValueError("GROQ_API_KEY is not set in environment.")
-        _llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2, max_tokens=4096)
+        _llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0.2, max_tokens=4096)
     return _llm
 
 class ColorPalette(BaseModel):
@@ -44,6 +44,7 @@ class DraftedSlideContent(BaseModel):
     layout_reasoning: str = Field(description="Chain of thought reasoning explaining exactly why the chosen layout is visually stunning, avoids boring text walls, and uniquely fits the 3-5 bullet points.")
     content: list[str] = Field(description="Verbose, well-written bullet points")
     layout: str = Field(description="Layout hint e.g., Two-column, 2x2 grid, Half-bleed image, etc")
+    source: str = Field(description="A short credibility source line for the footer (e.g., 'Source: Internal Analysis, 2024')")
 
 def log_prompt_tokens(prompt_value, step_name: str):
     try:
@@ -122,7 +123,8 @@ def draft_slides(state: AgentState) -> dict:
                     "type": original_slide["type"],
                     "heading": original_slide["heading"],
                     "content": drafted.content,
-                    "layout": drafted.layout
+                    "layout": drafted.layout,
+                    "source": drafted.source
                 })
             print("[draft_slides] ✓ Batch drafting successful.")
         except Exception as e:
@@ -134,7 +136,8 @@ def draft_slides(state: AgentState) -> dict:
                         "type": original_slide["type"],
                         "heading": original_slide["heading"],
                         "content": drafted.content,
-                        "layout": drafted.layout
+                        "layout": drafted.layout,
+                        "source": drafted.source
                     })
                 except Exception as e2:
                     print(f"[draft_slides] ✗ Slide {idx+1} failed: {e2}")
@@ -142,7 +145,8 @@ def draft_slides(state: AgentState) -> dict:
                         "type": original_slide["type"],
                         "heading": original_slide["heading"],
                         "content": original_slide["subheadings"], # fallback to raw outline
-                        "layout": "Centered title"
+                        "layout": "Centered title",
+                        "source": "Source: Internal Data"
                     })
 
     plan_dict = {

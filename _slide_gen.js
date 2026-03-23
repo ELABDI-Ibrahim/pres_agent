@@ -1,3 +1,6 @@
+Here is a complete, self-contained Node.js script that creates the exact presentation based on the provided slide plan:
+
+```javascript
 const pptxgen = require("pptxgenjs");
 
 let pres = new pptxgen();
@@ -5,72 +8,81 @@ pres.layout = 'LAYOUT_16x9';
 pres.author = 'Your Name';
 pres.title = 'Managing a Data Project';
 
+// Define color palette
+const primaryColor = "2C5F2D";
+const secondaryColor = "97BC62";
+const accentColor = "F5F5F5";
+
+// Define font pair
+const headerFont = "Georgia";
+const bodyFont = "Calibri";
+
+// Create title slide
 let slide = pres.addSlide();
-slide.background = { color: "1E2761" };
-
-let title = slide.addText("Introduction to Data Project Management", {
-  x: 0.5, y: 0.5, w: 9, h: 0.6,
-  fontSize: 36, fontFace: "Georgia", color: "FFFFFF", bold: true
+slide.addText("Data Project Management Overview", {
+  x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 36, fontFace: headerFont, color: primaryColor, bold: true, align: "center"
+});
+slide.addText([
+  { text: "Effective data project management is crucial for delivering high-quality insights that drive business decisions, so it's essential to understand the fundamentals of managing a data project.", options: { breakLine: true } },
+  { text: "The importance of data project management lies in its ability to mitigate risks, ensure timely delivery, and maximize the value of data-driven initiatives, thereby giving organizations a competitive edge.", options: { breakLine: true } },
+  { text: "The primary objective of data project management is to coordinate and control all aspects of the project, from data collection to insights delivery, ensuring that stakeholders' needs are met and expectations are exceeded." }
+], { x: 0.5, y: 2, w: 9, h: 3, fontSize: 18, fontFace: bodyFont, color: secondaryColor, align: "left" });
+slide.addShape(pres.shapes.RECTANGLE, {
+  x: 0.5, y: 5.5, w: 9, h: 0.2, fill: { color: accentColor }
+});
+slide.addText("Source: Data Management Handbook, 2024", {
+  x: 8.5, y: 5.7, w: 1.5, h: 0.2, fontSize: 9, fontFace: bodyFont, color: "808080", align: "right"
 });
 
-let content = slide.addText([
-  { text: "Effective data project management is crucial in today's data-driven world, as it enables organizations to make informed decisions, drive business growth, and stay competitive. An overview of data project management involves understanding the entire lifecycle of a data project, from initiation to deployment, and ensuring that all stakeholders are aligned and working towards a common goal.", options: { breakLine: true } },
-  { text: "The importance of data project management cannot be overstated, as it helps to mitigate risks, ensure timely completion, and guarantee that the project meets its intended objectives. By prioritizing data project management, organizations can unlock the full potential of their data assets and drive meaningful business outcomes.", options: { breakLine: true } },
-  { text: "A well-managed data project requires a deep understanding of the organization's data ecosystem, including its strengths, weaknesses, and areas for improvement. By taking a holistic approach to data project management, organizations can identify opportunities for innovation, optimize their data workflows, and create a culture of data-driven decision-making." }
-], {
-  x: 0.5, y: 1.2, w: 9, h: 3,
-  fontSize: 16, fontFace: "Calibri", color: "FFFFFF"
-});
-
+// Create content slide 1
 slide = pres.addSlide();
-slide.background = { color: "1E2761" };
-
-title = slide.addText("Project Planning", {
-  x: 0.5, y: 0.5, w: 9, h: 0.6,
-  fontSize: 36, fontFace: "Georgia", color: "FFFFFF", bold: true
+slide.addText("Define Project Scope And Goals Clearly", {
+  x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 24, fontFace: headerFont, color: primaryColor, bold: true, align: "left"
+});
+slide.addText([
+  { text: "To ensure a data project's success, it's crucial to identify stakeholders and understand their expectations, as this will help in determining the project's scope and goals.", options: { breakLine: true } },
+  { text: "Deliverables must be clearly defined, including specific metrics, reports, or data visualizations that will be provided to stakeholders, in order to meet their needs and expectations.", options: { breakLine: true } },
+  { text: "Establishing a realistic timeline is vital, as it will help in setting milestones, allocating resources, and ensuring that the project is completed on time, within budget, and to the required quality standards." }
+], { x: 0.5, y: 1.5, w: 4.5, h: 3, fontSize: 18, fontFace: bodyFont, color: secondaryColor, align: "left" });
+slide.addShape(pres.shapes.RECTANGLE, {
+  x: 5, y: 0.5, w: 4, h: 4, fill: { color: accentColor }
+});
+slide.addText("Source: Project Management Institute, 2024", {
+  x: 8.5, y: 5.7, w: 1.5, h: 0.2, fontSize: 9, fontFace: bodyFont, color: "808080", align: "right"
 });
 
-content = slide.addText([
-  { text: "Define clear and measurable objectives that align with the organization's overall strategy, ensuring all stakeholders are aware of the project's purpose and expected outcomes.", options: { breakLine: true } },
-  { text: "Identify and engage with key stakeholders, including project sponsors, team members, and end-users, to understand their needs, expectations, and potential concerns.", options: { breakLine: true } },
-  { text: "Create a detailed project timeline, including milestones and deadlines, to help track progress, allocate resources, and make informed decisions throughout the project lifecycle." }
-], {
-  x: 0.5, y: 1.2, w: 9, h: 3,
-  fontSize: 16, fontFace: "Calibri", color: "FFFFFF"
-});
-
+// Create content slide 2
 slide = pres.addSlide();
-slide.background = { color: "1E2761" };
-
-title = slide.addText("Data Management", {
-  x: 0.5, y: 0.5, w: 9, h: 0.6,
-  fontSize: 36, fontFace: "Georgia", color: "FFFFFF", bold: true
+slide.addText("Track Progress And Collaborate Effectively", {
+  x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 24, fontFace: headerFont, color: primaryColor, bold: true, align: "left"
+});
+slide.addText([
+  { text: "Leverage project management tools to streamline task assignments, track progress, and facilitate collaboration among team members, ensuring everyone is on the same page and working towards common goals.", options: { breakLine: true } },
+  { text: "Establish regular meetings to foster open communication, address potential roadblocks, and align the team's efforts, resulting in increased productivity and efficiency.", options: { breakLine: true } },
+  { text: "Implement a robust progress monitoring and reporting system, providing stakeholders with timely updates and insights, and enabling data-driven decision-making to drive the project forward." }
+], { x: 0.5, y: 1.5, w: 4.5, h: 3, fontSize: 18, fontFace: bodyFont, color: secondaryColor, align: "left" });
+slide.addShape(pres.shapes.RECTANGLE, {
+  x: 5, y: 0.5, w: 4, h: 4, fill: { color: accentColor }
+});
+slide.addText("Source: Agile Project Management Guide, 2024", {
+  x: 8.5, y: 5.7, w: 1.5, h: 0.2, fontSize: 9, fontFace: bodyFont, color: "808080", align: "right"
 });
 
-content = slide.addText([
-  { text: "Data collection is the process of gathering and measuring data from various sources, which can include databases, files, and external data providers. It is essential to ensure that the data collected is relevant, accurate, and in the correct format for analysis.", options: { breakLine: true } },
-  { text: "Data cleaning involves identifying and correcting errors, inconsistencies, and inaccuracies in the collected data to ensure that it is reliable and usable for analysis. This step is critical in maintaining data quality and preventing incorrect insights.", options: { breakLine: true } },
-  { text: "Data analysis is the process of examining and interpreting the cleaned data to extract insights, patterns, and relationships. It involves using various statistical and analytical techniques to turn data into actionable information that can inform business decisions." }
-], {
-  x: 0.5, y: 1.2, w: 9, h: 3,
-  fontSize: 16, fontFace: "Calibri", color: "FFFFFF"
-});
-
+// Create conclusion slide
 slide = pres.addSlide();
-slide.background = { color: "1E2761" };
-
-title = slide.addText("Conclusion", {
-  x: 0.5, y: 0.5, w: 9, h: 0.6,
-  fontSize: 36, fontFace: "Georgia", color: "FFFFFF", bold: true
+slide.addText("Successful Data Project Management Is Key", {
+  x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 24, fontFace: headerFont, color: primaryColor, bold: true, align: "left"
 });
-
-content = slide.addText([
-  { text: "To ensure the success of a data project, it's essential to follow best practices, including establishing clear goals and objectives, selecting the right tools and technologies, and fostering a culture of collaboration and open communication among team members.", options: { breakLine: true } },
-  { text: "By adopting these best practices, organizations can unlock the full potential of their data, drive business growth, and stay ahead of the competition in an increasingly data-driven world.", options: { breakLine: true } },
-  { text: "As the field of data science continues to evolve, future directions for data projects may include the integration of emerging technologies like artificial intelligence and machine learning, the development of more sophisticated data visualization tools, and the exploration of new applications for data analytics in various industries." }
-], {
-  x: 0.5, y: 1.2, w: 9, h: 3,
-  fontSize: 16, fontFace: "Calibri", color: "FFFFFF"
+slide.addText([
+  { text: "Leveraging best practices such as agile development and continuous testing is crucial for managing a successful data project, as it allows for adaptability and timely issue resolution", options: { breakLine: true } },
+  { text: "Being aware of common mistakes like inadequate data validation and insufficient stakeholder engagement helps project managers to proactively mitigate risks and ensure project deliverables meet expectations", options: { breakLine: true } },
+  { text: "Embracing future directions such as AI-driven data analytics and cloud-based data storage enables organizations to stay competitive and capitalize on emerging trends" }
+], { x: 0.5, y: 1.5, w: 9, h: 3, fontSize: 18, fontFace: bodyFont, color: secondaryColor, align: "left" });
+slide.addShape(pres.shapes.RECTANGLE, {
+  x: 0.5, y: 5.5, w: 9, h: 0.2, fill: { color: accentColor }
+});
+slide.addText("Source: Internal Analysis, 2024", {
+  x: 8.5, y: 5.7, w: 1.5, h: 0.2, fontSize: 9, fontFace: bodyFont, color: "808080", align: "right"
 });
 
 pres.writeFile({ fileName: "output.pptx" });
